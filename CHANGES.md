@@ -1,8 +1,17 @@
 ## Changelog
 
-### 0.5.0
+### 0.6.1
+ * Update: to_list's behavior matches that of to_dict (respects max_depth, if set).
+
+### 0.6.0 (2022-10-19)
+ * Update: Drop support for python 3.7
+ * Feature: to_list method
+ * Bugfix: Initialize iterator correctly
+
+### 0.5.0 (2022-08-23)
  * Bugfix: fix segmentation fault when calculating checksum on empty orderbook
  * Bugfix: fix missing reference decrement
+ * Performance: Improvement to marking dirty keys
 
 ### 0.4.3 (2022-05-29)
  * Bugfix: handle scientific notation of small values in Kraken checksum

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2020-2022  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -42,6 +42,7 @@ int SortedDict_init(SortedDict *self, PyObject *args, PyObject *kwds);
 PyObject* SortedDict_keys(SortedDict *self, PyObject *Py_UNUSED(ignored));
 PyObject* SortedDict_index(SortedDict *self, PyObject *index);
 PyObject* SortedDict_todict(SortedDict *self, PyObject *unused, PyObject *kwargs);
+PyObject* SortedDict_tolist(SortedDict *self, PyObject *Py_UNUSED(ignored));
 PyObject* SortedDict_truncate(SortedDict *self, PyObject *Py_UNUSED(ignored));
 
 Py_ssize_t SortedDict_len(const SortedDict *self);
@@ -50,6 +51,7 @@ int SortedDict_setitem(SortedDict *self, PyObject *key, PyObject *value);
 
 int SortedDict_contains(const SortedDict *self, PyObject *value);
 
+PyObject *SortedDict_getiter(SortedDict *self);
 PyObject *SortedDict_next(SortedDict *self);
 
 
@@ -68,6 +70,7 @@ static PyMethodDef SortedDict_methods[] = {
     {"index", (PyCFunction) SortedDict_index, METH_O, "return a key, value tuple at index N"},
     {"truncate", (PyCFunction) SortedDict_truncate, METH_NOARGS, "truncate to length max_depth"},
     {"to_dict", (PyCFunction) SortedDict_todict, METH_VARARGS | METH_KEYWORDS, "return a python dictionary, sorted by keys"},
+    {"to_list", (PyCFunction) SortedDict_tolist, METH_NOARGS, "return a list of key, value tuples."},
     {NULL}
 };
 
@@ -99,7 +102,7 @@ static PyTypeObject SortedDictType = {
     .tp_methods = SortedDict_methods,
     .tp_as_mapping = &SortedDict_mapping,
     .tp_as_sequence = &SortedDict_seq,
-    .tp_iter  = PyObject_SelfIter,
+    .tp_iter  = (getiterfunc) SortedDict_getiter,
     .tp_iternext = (iternextfunc) SortedDict_next,
     .tp_dictoffset = 0,
 };

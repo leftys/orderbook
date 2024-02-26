@@ -1,5 +1,5 @@
 '''
-Copyright (C) 2020-2022  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -35,7 +35,7 @@ class Test(TestCommand):
 
 setup(
     name='order_book',
-    version='0.5.0',
+    version='0.6.1',
     author="Bryant Moscon",
     author_email="bmoscon@gmail.com",
     description="A fast orderbook implementation, in C, for Python",

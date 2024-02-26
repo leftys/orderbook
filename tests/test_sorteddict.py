@@ -1,5 +1,5 @@
 '''
-Copyright (C) 2020-2022  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -140,6 +140,43 @@ def test_to_dict():
             d[key] < previous
         previous = d[key]
 
+def test_to_list():
+    random.seed()
+    values = []
+    asc = SortedDict(ordering='ASC')
+    desc = SortedDict(ordering='DESC')
+
+    for _ in range(2000):
+        values.append(random.uniform(0.0, 100000.0))
+    values = set(values)
+
+    for v in values:
+        asc[v] = str(v)
+        desc[v] = str(v)
+
+    lst = asc.to_list()
+    _keys = list(list(zip(*lst))[0])
+    assert _keys == list(asc.keys())
+    assert sorted(_keys) == _keys
+    previous = None
+    for key, val in lst:
+        assert val == asc[key]
+        val = float(val)
+        if previous:
+            assert val > previous
+        previous = val
+
+    lst = desc.to_list()
+    _keys = list(list(zip(*lst))[0])
+    assert _keys == list(desc.keys())
+    assert list(reversed(sorted(_keys))) == _keys
+    previous = None
+    for key, val in lst:
+        assert val == desc[key]
+        val = float(val)
+        if previous:
+            assert val < previous
+        previous = val
 
 def test_init_from_dict():
     with pytest.raises(TypeError):
@@ -265,6 +302,7 @@ def test_depth():
     assert len(d) == 10
 
     assert len(d.to_dict()) == 10
+    assert len(d.to_list()) == 10
 
 
 def test_depth_nontruncated():

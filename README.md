@@ -1,7 +1,7 @@
 # Orderbook
 
 [![License](https://img.shields.io/badge/license-GLPv3-blue.svg)](LICENSE)
-![Python](https://img.shields.io/badge/Python-3.7+-green.svg)
+![Python](https://img.shields.io/badge/Python-3.8+-green.svg)
 [![PyPi](https://img.shields.io/badge/PyPi-order--book-brightgreen)](https://pypi.python.org/pypi/order-book)
 ![coverage-lines](https://img.shields.io/badge/coverage%3A%20lines-84.6%25-blue)
 ![coverage-functions](https://img.shields.io/badge/coverage%3A%20functions-100%25-blue)
@@ -61,6 +61,14 @@ for price in ob.asks:
 # dict returned by .to_dict() has had its keys inserted in sorted order
 print("\n\nRaw asks dictionary")
 print(ob.asks.to_dict())
+
+
+# Data can also be exported as an ordered list
+# .to_list() returns a list of (price, size) tuples
+print("Top 5 Asks")
+print(ob.asks.to_list()[:5])
+print("\nTop 5 Bids")
+print(ob.bids.to_list()[:5])
 
 ```
 

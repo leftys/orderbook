@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2020-2022  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -339,6 +339,59 @@ PyObject* SortedDict_todict(SortedDict *self, PyObject *unused, PyObject *kwargs
 }
 
 
+PyObject* SortedDict_tolist(SortedDict *self, PyObject *Py_UNUSED(ignored))
+{
+
+    int len = PyDict_Size(self->data);
+    if ((self->depth > 0) && (self->depth < len)) {
+        len = self->depth;
+    }
+
+    if (EXPECT(PyErr_Occurred() != NULL, 0)) {
+        return NULL;
+    }
+
+    if (EXPECT(update_keys(self), 0)) {
+        return NULL;
+    }
+
+    PyObject *ret = PyList_New(len);
+    if (EXPECT(!ret, 0)) {
+        return NULL;
+    }
+
+    for (int i = 0; i < len; ++i) {
+        // new reference
+        PyObject *key = PySequence_GetItem(self->keys, i);
+        if (EXPECT(!key, 0)) {
+            return NULL;
+        }
+
+        // borrowed reference
+        PyObject *value = PyDict_GetItem(self->data, key);
+        if (EXPECT(!value, 0)) {
+            Py_DECREF(key);
+            return value;
+        }
+
+        // Build tuple of (i.e., key, value)
+        PyObject *tuple_entry = PyTuple_New(2);
+        if (EXPECT(!tuple_entry, 0)) {
+            Py_DECREF(key);
+            return NULL;
+        }
+        PyTuple_SET_ITEM(tuple_entry, 0, key);
+        Py_INCREF(value);
+        PyTuple_SET_ITEM(tuple_entry, 1, value);
+
+        // Add tuple to list
+        PyList_SET_ITEM(ret, i, tuple_entry);
+    }
+    
+    return ret;
+}
+
+
 PyObject* SortedDict_truncate(SortedDict *self, PyObject *Py_UNUSED(ignored))
 {
     if (self->depth) {
@@ -434,6 +487,13 @@ int SortedDict_contains(const SortedDict *self, PyObject *value)
 }
 
 /* iterator methods */
+PyObject *SortedDict_getiter(SortedDict *self)
+{
+    Py_INCREF(self);
+    self->iterator_index = -1;
+    return self;
+}
+
 PyObject *SortedDict_next(SortedDict *self)
 {
     if (self->iterator_index == -1) {
