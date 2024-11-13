@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2024  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -121,7 +121,7 @@ static PyModuleDef orderbookmodule = {
     .m_slots = NULL,
     .m_traverse = order_book_traverse,
     .m_clear = order_book_clear,
-    .m_free = order_book_free,
+    .m_free = (void *)order_book_free,
 };
 
 

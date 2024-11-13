@@ -1,5 +1,5 @@
 '''
-Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2024  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -137,7 +137,7 @@ def random_data_test(size):
 
     @profile
     def access_top10_c_tolist(c_dictionary):
-        a = c_dictionary.to_list(10)
+        a = c_dictionary.to_list()
 
     @profile
     def access_top10_c_todict(c_dictionary):

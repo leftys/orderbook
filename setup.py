@@ -1,5 +1,5 @@
 '''
-Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2024  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -53,9 +53,10 @@ setup(
         "Development Status :: 3 - Alpha",
         "Programming Language :: C",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: Implementation :: CPython",
         "Operating System :: MacOS",

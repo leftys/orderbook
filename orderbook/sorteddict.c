@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2024  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -34,7 +34,7 @@ PyObject *SortedDict_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
             return NULL;
         }
 
-	self->ordering = INVALID_ORDERING;
+        self->ordering = INVALID_ORDERING;
         // -1 means uninitalized
         self->iterator_index = -1;
         self->keys = NULL;
@@ -491,7 +491,7 @@ PyObject *SortedDict_getiter(SortedDict *self)
 {
     Py_INCREF(self);
     self->iterator_index = -1;
-    return self;
+    return (PyObject *)self;
 }
 
 PyObject *SortedDict_next(SortedDict *self)

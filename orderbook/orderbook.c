@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2020-2023  Bryant Moscon - bmoscon@gmail.com
+Copyright (C) 2020-2024  Bryant Moscon - bmoscon@gmail.com
 
 Please see the LICENSE file for the terms and conditions
 associated with this software.
@@ -540,7 +540,7 @@ static int okx_string_builder(PyObject *pydata, uint8_t *data, int *pos)
     }
 
     // default 'str' formatting is wrong when the value is in scientific notation
-    if (EXPECT(memchr(&data[startpos], (char) 'E', *pos - startpos), 0)) {
+    if (EXPECT((long)memchr(&data[startpos], (char) 'E', *pos - startpos), (long)0)) {
         *pos = startpos;
         if (EXPECT(formatf_string_builder(pydata, data, pos), 0)) {
             return -1;
@@ -559,7 +559,7 @@ static int ftx_string_builder(PyObject *pydata, uint8_t *data, int *pos)
     }
 
     // default 'str' formatting is wrong when the value is less than 0.0001 or in scientific notation
-    if (EXPECT(!strncmp(&data[startpos], "0.0000", 6) || memchr(&data[startpos], (char) 'E', *pos - startpos), 0)) {
+    if (EXPECT(!strncmp((const char *)&data[startpos], "0.0000", 6) || memchr(&data[startpos], (char) 'E', *pos - startpos), 0)) {
         *pos = startpos;
         if (EXPECT(floatstr_string_builder(pydata, data, pos), 0)) {
             return -1;

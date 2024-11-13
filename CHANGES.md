@@ -1,7 +1,8 @@
 ## Changelog
 
-### 0.6.1
+### 0.6.1 (2024-04-22)
  * Update: to_list's behavior matches that of to_dict (respects max_depth, if set).
+ * Update: resolve build warnings on some compilers.
 
 ### 0.6.0 (2022-10-19)
  * Update: Drop support for python 3.7
