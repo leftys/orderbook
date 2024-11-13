@@ -66,14 +66,13 @@ static PyMemberDef SortedDict_members[] = {
 
 // SortedDict methods
 static PyMethodDef SortedDict_methods[] = {
-    {"keys", (PyCFunction) SortedDict_keys, METH_NOARGS, "return a list of keys in the sorted dictionary"},
-    {"index", (PyCFunction) SortedDict_index, METH_O, "return a key, value tuple at index N"},
-    {"truncate", (PyCFunction) SortedDict_truncate, METH_NOARGS, "truncate to length max_depth"},
-    {"to_dict", (PyCFunction) SortedDict_todict, METH_VARARGS | METH_KEYWORDS, "return a python dictionary, sorted by keys"},
-    {"to_list", (PyCFunction) SortedDict_tolist, METH_NOARGS, "return a list of key, value tuples."},
+    {"keys", (PyCFunction)SortedDict_keys, METH_NOARGS, "return a list of keys in the sorted dictionary"},
+    {"index", (PyCFunction)SortedDict_index, METH_O, "return a key, value tuple at index N"},
+    {"truncate", (PyCFunction)SortedDict_truncate, METH_NOARGS, "truncate to length max_depth"},
+    {"to_dict", (PyCFunction)SortedDict_todict, METH_VARARGS | METH_KEYWORDS, "return a python dictionary, sorted by keys"},
+    {"to_list", (PyCFunction)SortedDict_tolist, METH_O, "return a list of key, value tuples."},
     {NULL}
 };
-
 
 // Sorted Dictionary Type Setup
 static PyMappingMethods SortedDict_mapping = {

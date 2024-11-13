@@ -137,7 +137,7 @@ def random_data_test(size):
 
     @profile
     def access_top10_c_tolist(c_dictionary):
-        a = c_dictionary.to_list()
+        a = c_dictionary.to_list(0)
 
     @profile
     def access_top10_c_todict(c_dictionary):
@@ -155,10 +155,10 @@ def random_data_test(size):
                 break
 
     print(f"C lib with {size} entries (access)")
-    
+
     print(f"- index impl ", end="")
     access_top10_c_index(asc)
-    
+
     print(f"- todict impl ", end="")
     access_top10_c_todict(asc)
 
@@ -170,10 +170,10 @@ def random_data_test(size):
 
     print(f"- tolist impl ", end="")
     access_top10_c_tolist(asc)
-    
+
     print(f"Orderbook SortedDict Python lib with {size} entries (access)")
     access_top10_iter(python_sd)
-    
+
     print(f"Python dict (non sorted) with {size} entries (access)")
     access_top10_iter(raw_python)
 

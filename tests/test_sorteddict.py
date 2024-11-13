@@ -154,7 +154,7 @@ def test_to_list():
         asc[v] = str(v)
         desc[v] = str(v)
 
-    lst = asc.to_list()
+    lst = asc.to_list(0)
     _keys = list(list(zip(*lst))[0])
     assert _keys == list(asc.keys())
     assert sorted(_keys) == _keys
@@ -166,7 +166,7 @@ def test_to_list():
             assert val > previous
         previous = val
 
-    lst = desc.to_list()
+    lst = desc.to_list(0)
     _keys = list(list(zip(*lst))[0])
     assert _keys == list(desc.keys())
     assert list(reversed(sorted(_keys))) == _keys
@@ -302,7 +302,15 @@ def test_depth():
     assert len(d) == 10
 
     assert len(d.to_dict()) == 10
-    assert len(d.to_list()) == 10
+    assert len(d.to_list(0)) == 10
+
+
+def test_tolist_max():
+    d = SortedDict({i: i for i in range(100)}, max_depth=10)
+    assert d.keys() == (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+    assert len(d) == 10
+
+    assert len(d.to_list(5)) == 5
 
 
 def test_depth_nontruncated():

@@ -338,13 +338,15 @@ PyObject* SortedDict_todict(SortedDict *self, PyObject *unused, PyObject *kwargs
     return ret;
 }
 
-
-PyObject* SortedDict_tolist(SortedDict *self, PyObject *Py_UNUSED(ignored))
+PyObject *SortedDict_tolist(SortedDict *self, PyObject *max_depth)
 {
-
+    long max_depth_i = PyLong_AsLong(max_depth);
     int len = PyDict_Size(self->data);
     if ((self->depth > 0) && (self->depth < len)) {
         len = self->depth;
+    }
+    if ((max_depth_i != 0) && (max_depth_i < len)) {
+        len = max_depth_i;
     }
 
     if (EXPECT(PyErr_Occurred() != NULL, 0)) {
@@ -387,7 +389,7 @@ PyObject* SortedDict_tolist(SortedDict *self, PyObject *Py_UNUSED(ignored))
         // Add tuple to list
         PyList_SET_ITEM(ret, i, tuple_entry);
     }
-    
+
     return ret;
 }
 

@@ -66,9 +66,9 @@ print(ob.asks.to_dict())
 # Data can also be exported as an ordered list
 # .to_list() returns a list of (price, size) tuples
 print("Top 5 Asks")
-print(ob.asks.to_list()[:5])
+print(ob.asks.to_list(5))
 print("\nTop 5 Bids")
-print(ob.bids.to_list()[:5])
+print(ob.bids.to_list(5))
 
 ```
 
@@ -81,7 +81,7 @@ print(ob.bids.to_list()[:5])
 
 ### Installation
 
-The preferable way to install is via `pip` - `pip install order-book`. Installing from source will require a compiler and can be done with setuptools: `python setup.py install`. 
+The preferable way to install is via `pip` - `pip install order-book`. Installing from source will require a compiler and can be done with setuptools: `python setup.py install`.
 
 
 ### Running code coverage
